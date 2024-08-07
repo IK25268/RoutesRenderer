@@ -1,0 +1,39 @@
+cmake_minimum_required(VERSION 3.28)
+
+set(CMAKE_C_STANDARD 23)
+set(PROJECT_NAME RoutesRenderer_run)
+
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
+include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
+
+add_executable (
+	${PROJECT_NAME} 
+	main.c
+	lib/DijkstraAlgorithm.c
+	lib/GraphRoutesStruct.c
+	lib/GUI.c
+	lib/List.c
+	lib/MapStruct.c
+	lib/Program.c
+	lib/RBT.c
+	lib/RWFile.c
+	lib/WaveAlgorithm.c
+)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_BINARY_DIR}/src)
+target_link_libraries(${PROJECT_NAME} PUBLIC ${SDL2_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${SDL2_IMAGE_LIBRARIES})
+
+add_library(${PROJECT_NAME}_lib STATIC 
+	lib/DijkstraAlgorithm.c
+	lib/GraphRoutesStruct.c
+	lib/GUI.c
+	lib/List.c
+	lib/MapStruct.c
+	lib/Program.c
+	lib/RBT.c
+	lib/RWFile.c
+	lib/WaveAlgorithm.c
+)
+target_include_directories (${PROJECT_NAME}_lib PUBLIC ${PROJECT_SOURCE_DIR}/src)
